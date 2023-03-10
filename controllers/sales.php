@@ -1,11 +1,14 @@
 <?php
 include_once 'libs/controller.php';
 
-class ProductsController extends Controller{
+class Sales extends Controller{
 
     function __construct(){
         parent::__construct();
-        $this->view->render('products/index');
+    }
+
+    function renderView(){
+        $this->view->render('sales/index');
     }
 }
 

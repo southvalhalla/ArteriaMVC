@@ -6,10 +6,10 @@
         private $password;
 
         public function __construct () {
-        $this->host = "localhost";
-        $this->dataBase = "arteriadb";
-        $this->username = "root";
-        $this->password = "Pa22w0rd";
+        $this->host = constant('HOST');
+        $this->dataBase = constant('DATABASE');
+        $this->username = constant('USER');
+        $this->password = constant('PASSWORD');
         }
 
         public function connect () {
@@ -18,7 +18,7 @@
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 return $conn;
             } catch(PDOException $e){
-                echo"error en la conexion: ". $e->getMessage(); 
+                print_r("error en la conexion: ". $e->getMessage()); 
             }
         }
         

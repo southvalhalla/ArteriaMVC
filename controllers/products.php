@@ -1,15 +1,14 @@
 <?php
 include_once 'libs/controller.php';
 
-class Main extends Controller{
+class Products extends Controller{
 
     function __construct(){
         parent::__construct();
-        // echo "<p>Nuevo controlador main</p>";
     }
 
     function renderView(){
-        $this->view->render('main/index');
+        $this->view->render('products/index');
     }
 }
 

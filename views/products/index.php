@@ -3,11 +3,11 @@
 		<title>Arteria</title>
 		<meta charset="UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        <link rel="stylesheet" href="../../public/css/style.css">
+        <link rel="stylesheet" href="<?= constant('URL') ?>public/css/style.css">
     </head>
     <body class="bg-dark bg-gradient">
         <?php
-            // include 'navBar.php';
+            include 'views/navBar.php';
         ?>
         <table class="table table-dark table-striped table-hover d-flex justify-content-center border-secondary rounded ">
             
@@ -16,7 +16,7 @@
                     <input type="text" name="txtbuscar" id="cajabuscar" placeholder="Ingresar nombre de producto" class="form form-control w-25"><input type="submit" value="Buscar" class="btn btn-success mt-2" name="btnbuscar">
                 </form>
             </div>
-            <tr><th colspan="9" class="text-center"><h1>LISTA DE PRODUCTOS</h1><th><a class="btn btn-primary mt-2" onclick="abrirform()">Agregar</a></th></tr>
+            <tr><th colspan="8" class="text-center"><h1>LISTA DE PRODUCTOS</h1><th><a class="btn btn-primary mt-2" onclick="abrirform()">Agregar</a></th></tr>
             <tr>
                 <th>Codigo</th>
                 <th>Nombre producto</th>
@@ -39,11 +39,11 @@
                 <td>fecha_fab</td>
                 <td>descripcion</td> 
                 <td style='width:26%'>
-                    <a class='btn btn-success' href='#'>Modificar</a> | <a class='btn btn-danger' href='#' onClick=<?="return confirm('¿Estás seguro de eliminar a $mostrar[nom_pro]?')"?>>Eliminar</a>
+                    <a class='btn btn-success' href='#'>Modificar</a> | <a class='btn btn-danger' href='#' onClick="">Eliminar</a>
                 </td>
             </tr>
         </table>
-        <script src="../../public/js/main.js"></script>
+        <script src="<?= constant('URL') ?>public/js/main.js"></script>
         <div class="caja_popup bg-body-secondary border border-4 border-primary-subtle rounded position-absolute top-50 start-50 translate-middle w-50 h-75" id="formregistrar">
             <form action="" class="contenedor_popup" method="POST">
                 <table>
@@ -97,6 +97,6 @@
     </body>
 </html>
 <?php
-$page = 1;
+
 ?>
 
