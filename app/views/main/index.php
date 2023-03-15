@@ -30,7 +30,7 @@
 <body class="bg-dark">
 
     <?php
-        include 'views/navBar.php';
+        include 'src/views/navBar.php';
     ?>
     <img src="public/img/logo_negro.jpg" alt="Descripción de la imagen">
     <div>

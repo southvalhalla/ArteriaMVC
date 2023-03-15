@@ -8,25 +8,25 @@
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="main">ArteriaElectronics</a>
+        <a class="navbar-brand" href="<?= constant('URL') ?>main">ArteriaElectronics</a>
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="categories" >Categorias</a>
+            <a class="nav-link" href="<?= constant('URL') ?>categories" >Categorias</a>
           <li class="nav-item">
-            <a class="nav-link" href="sales" >Compras</a>
+            <a class="nav-link" href="<?= constant('URL') ?>sales" >Compras</a>
             </li>
           <li class="nav-item">
-            <a class="nav-link" href="products" >Productos</a>
+            <a class="nav-link" href="<?= constant('URL') ?>products" >Productos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="users" >Usuario</a>
+            <a class="nav-link" href="<?= constant('URL') ?>users" >Usuario</a>
           </li> 
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link btn btn-outline-success my-2 my-sm-0" href="../index.php">Cerrar sesión</a>
+            <a class="nav-link btn btn-outline-success my-2 my-sm-0" href="#">Cerrar sesión</a>
           </li>
           
         </ul>
