@@ -1,5 +1,5 @@
 <?php
-include_once 'src/libs/controller.php';
+include_once 'app/libs/controller.php';
 
 class Errorr extends Controller{
 

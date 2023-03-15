@@ -1,6 +1,6 @@
 <?php
-require_once 'src/libs/model.php';
-include_once 'src/class/category.php';
+require_once 'app/libs/model.php';
+include_once 'app/class/category.php';
 
 class categoriesModel extends Model{
 
@@ -9,7 +9,7 @@ class categoriesModel extends Model{
     }
 
     public function getCategories(){
-        $query = $this->db->connect()->query('SELECT * FROM categorias');
+        $query = $this->db->connect()->query('SELECT * FROM categories');
 
         return $query;
     }
@@ -17,11 +17,10 @@ class categoriesModel extends Model{
     public function insertCategory($item){
 
         try{
-            $query = $this->db->connect()->prepare("INSERT INTO categorias(cod,tipo_pro,carac) Values(:cod, :tipo_pro, :carac)");
+            $query = $this->db->connect()->prepare("INSERT INTO categories(category,characteristics) Values(:category, :characteristics)");
             $query->execute([
-                'cod'       => $item['cod'],
-                'tipo_pro'  => $item['tipo_pro'],
-                'carac'     => $item['carac']
+                'category'          => $item['category'],
+                'characteristics'   => $item['characteristics']
             ]);
             return true;
         }catch(PDOException $e){
@@ -34,13 +33,13 @@ class categoriesModel extends Model{
         $items = [];
 
         try {
-            $query = $this->db->connect()->query("SELECT * FROM categorias");
+            $query = $this->db->connect()->query("SELECT * FROM categories");
 
             while($row = $query-> fetch()){
                 $item = new category();
-                $item->cod = $row['cod'];
-                $item->tipo_pro = $row['tipo_pro'];
-                $item->carac = $row['carac'];
+                $item->id               = $row['id'];
+                $item->category         = $row['category'];
+                $item->characteristics  = $row['characteristics'];
 
                 array_push($items,$item);
                 return $items;
@@ -53,14 +52,14 @@ class categoriesModel extends Model{
     public function getById($id){
         $item = new Category();
 
-        $query = $this->db->connect()->prepare("SELECT * FROM categorias WHERE cod = :cod");
+        $query = $this->db->connect()->prepare("SELECT * FROM categories WHERE id = :id");
         try{
-            $query->execute(['cod' => $id]);
+            $query->execute(['id' => $id]);
 
             while($row = $query->fetch()){
-                $item->cod          = $row['cod'];
-                $item->tipo_pro     = $row['tipo_pro'];
-                $item->carac        = $row['carac'];
+                $item->id               = $row['id'];
+                $item->category         = $row['category'];
+                $item->characteristics  = $row['characteristics'];
             }
 
             return $item;
@@ -70,13 +69,13 @@ class categoriesModel extends Model{
     }
 
     public function updateCategory($item){
-        $query = $this->db->connect()->prepare("UPDATE categorias SET tipo_pro = :tipo_pro, carac = :carac WHERE cod = :cod");
+        $query = $this->db->connect()->prepare("UPDATE categories SET category = :category, characteristics = :characteristics WHERE id = :id");
 
         try{
             $query->execute([
-                'cod'       => $item['cod'],
-                'tipo_pro'  => $item['tipo_pro'],
-                'carac'     => $item['carac']
+                'id'               => $item['id'],
+                'category'         => $item['category'],
+                'characteristics'  => $item['characteristics']
             ]);
             return true;
         }catch(PDOException $e){
@@ -85,7 +84,7 @@ class categoriesModel extends Model{
     }
 
     public function deleteCategory($id) {
-        $query = $this->db->connect()->prepare("DELETE FROM categorias WHERE cod = :id");
+        $query = $this->db->connect()->prepare("DELETE FROM categories WHERE id = :id");
 
         try{
             $query->execute([

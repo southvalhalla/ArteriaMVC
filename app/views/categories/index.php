@@ -7,7 +7,7 @@
     </head>
     <body class="bg-dark bg-gradient">
         <?php
-            include 'src/views/navBar.php';
+            include 'app/views/navBar.php';
         ?>
         <table class="table table-dark table-striped table-hover justify-content-center border-secondary border border-dark rounded" style="width:75%; margin-right:auto; margin-left:auto;">
             <div id="barrabuscar" class="ms-2 form-group">
@@ -32,16 +32,16 @@
             </thead>
             <tbody id="tbody-categories">
                 <?php
-                    include_once 'src/class/category.php';
+                    include_once 'app/class/category.php';
                     foreach ($this->categories as $category ):
                         
                 ?>                        
-                <tr id="row-<?= $category['cod'] ?>">
-                    <td><?= $category['cod'] ?></td>
-                    <td><?= $category['tipo_pro'] ?></td>
-                    <td><?= $category['carac'] ?></td>
+                <tr id="row-<?= $category['id'] ?>">
+                    <td><?= $category['id'] ?></td>
+                    <td><?= $category['category'] ?></td>
+                    <td><?= $category['characteristics'] ?></td>
                     <td class='w-auto'>
-                        <a class="btn btn-success" href="<?= constant('URL').'Categories/showCategory/' . $category['cod']; ?>">Modificar</a> | <button class="bDelete btn btn-danger" data-cod="<?= $category['cod']; ?>">Eliminar</button>
+                        <a class="btn btn-success" href="<?= constant('URL').'Categories/showCategory/' . $category['id']; ?>">Modificar</a> | <button class="bDelete btn btn-danger" data-id="<?= $category['id']; ?>">Eliminar</button>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -50,26 +50,23 @@
         </table>
         <script src="<?= constant('URL') ?>public/js/main.js"></script>
         <div class="caja_popup bg-body-secondary border border-4 border-primary-subtle rounded position-absolute top-50 start-50 translate-middle" style="width:35%; height:35%;" id="formregistrar">
-            <form action="<?= constant('URL') ?>categories/createCategory" class="contenedor_popup" method="POST">
+            <form action="<?= constant('URL').'Categories/createCategory/' ?>" class="contenedor_popup" method="POST">
                 <table>
                     <tr>
-                    <th colspan="2">Categoria</th></tr>
-                    <tr>
-                        <td>id</td>
-                        <td><input class="form-control ms-2" type="number" name="txtcod" required></td>
+                    <th colspan="2">Categoria</th>
                     </tr>
                     <tr>
                         <td>categoria</td>
-                        <td><input class="form-control ms-2" type="text" name="txttipo_pro" required></td>
+                        <td><input class="form-control ms-2" type="text" id="category" name="category" required></td>
                     </tr>
                     <tr>
                         <td>caracteristicas</td>
-                        <td><input class="form-control ms-2" type="text" name="txtcarac" required></td>
+                        <td><input class="form-control ms-2" type="text" id="characteristics" name="characteristics" required></td>
                     </tr>
                     <tr> 	
                         <td colspan="2">
                             <button class="btn btn-danger" type="button" onclick="cancelarform()">Cancelar</button>
-                            <input class="btn btn-success" type="submit" name="btnregistrar" value="Registrar" onClick="javascript: return confirm ('¿Deseas registraresta categoria?');">
+                            <input class="btn btn-success" id="submitBtn" type="submit" name="btnregistrar" value="Registrar">
                         </td>
                     </tr>
                     
@@ -77,6 +74,8 @@
             </form>
         </div>
         <div class="center"><?= $this->message ?></div>
+        
+        <script src="<?= constant('URL') ?>public/js/categories.js"></script>
     </body>
 </html>
 

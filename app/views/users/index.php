@@ -7,7 +7,7 @@
     </head>
     <body class="bg-dark bg-gradient">
         <?php
-            include 'src/views/navBar.php';
+            include 'app/views/navBar.php';
         ?>
         <table class="table table-dark table-striped table-hover d-flex justify-content-center border-secondary rounded ">
             

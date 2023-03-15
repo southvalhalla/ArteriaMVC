@@ -7,7 +7,7 @@
     </head>
     <body class="bg-dark bg-gradient">
         <?php
-            include 'src/views/navBar.php';
+            include 'app/views/navBar.php';
         ?>
         <form action="<?= constant('URL') ?>categories/editCategory" class="" method="POST">
             <table class="table table-dark table-striped table-hover d-flex justify-content-center border-secondary rounded ">
@@ -15,15 +15,15 @@
                 <th colspan="2">Categoria</th></tr>
                 <tr>
                     <td>id</td>
-                    <td><input class="form-control ms-2" type="number" name="txtcod" value="<?= $this->category->cod ; ?>" disabled></td>
+                    <td><input class="form-control ms-2" type="text" name="" value="<?= $this->categoryView->id ; ?>" disabled></td>
                 </tr>
                 <tr>
                     <td>categoria</td>
-                    <td><input class="form-control ms-2" type="text" name="txttipo_pro" value="<?= $this->category->tipo_pro ; ?>" required></td>
+                    <td><input class="form-control ms-2" type="text" name="category" value="<?= $this->categoryView->category ; ?>" required></td>
                 </tr>
                 <tr>
                     <td>caracteristicas</td>
-                    <td><input class="form-control ms-2" type="text" name="txtcarac" value="<?= $this->category->carac ; ?>" required></td>
+                    <td><input class="form-control ms-2" type="text" name="characteristics" value="<?= $this->categoryView->characteristics ; ?>" required></td>
                 </tr>
                 <tr> 	
                     <td colspan="2">

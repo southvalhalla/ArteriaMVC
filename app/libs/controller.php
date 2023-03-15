@@ -11,11 +11,11 @@ class Controller{
     }
 
     function render($name){
-        require 'src/views/' . $name . '.php';
+        require 'app/views/' . $name . '.php';
     }
 
     function loadModel($model){
-        $url = 'src/models/' . $model . 'Model.php';
+        $url = 'app/models/' . $model . 'Model.php';
 
         if (file_exists(($url))) {
             require $url;

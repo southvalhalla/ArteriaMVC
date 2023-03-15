@@ -1,5 +1,5 @@
 <?php
-require_once 'src/controllers/error.php';
+require_once 'app/controllers/error.php';
 
 class App{
 
@@ -10,7 +10,7 @@ class App{
         $url = explode('/', $url);
 
         if (empty($url[0])){
-            $fileController = 'src/controllers/main.php';
+            $fileController = 'app/controllers/main.php';
             require_once $fileController;
             $controller = new Main();
             $controller->loadModel('main');
@@ -18,7 +18,7 @@ class App{
             return false;
         }
 
-        $fileController = 'src/controllers/' . $url[0] . '.php';
+        $fileController = 'app/controllers/' . $url[0] . '.php';
 
         if(file_exists($fileController)){
             require_once $fileController;

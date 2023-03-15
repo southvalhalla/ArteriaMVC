@@ -4,13 +4,13 @@ class View{
     public $message;
 
     public $categories;
-    public $category;
+    public $categoryView;
 
     function __construct(){
     }
 
     function render($name){
-        require "src/views/". $name . ".php";
+        require "app/views/". $name . ".php";
     }
 }
 ?>

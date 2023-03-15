@@ -1,5 +1,5 @@
 <?php
-include_once 'src/libs/controller.php';
+include_once 'app/libs/controller.php';
 
 class Categories extends Controller{
 
@@ -16,25 +16,21 @@ class Categories extends Controller{
     }
 
     function createCategory() {
-        $cod        = $_POST['txtcod'];
-        $tipo_pro   = $_POST['txttipo_pro'];
-        $carac      = $_POST['txtcarac'];
+        $category           = $_POST['category'];
+        $characteristics    = $_POST['characteristics'];
 
         $message = "";
 
         if ($this->model->insertCategory([
-            'cod'       => $cod, 
-            'tipo_pro'  => $tipo_pro, 
-            'carac'     => $carac
+            'category'          => $category, 
+            'characteristics'   => $characteristics
         ])) {
             $message = 'categoria creada';
+            header("Location: ../");
+            exit();
         } else {
             $message = 'la categoria ya existe';
         }
-
-        $this->view->message = $message;
-        $this->renderView();
-        
     }
 
     function showCategory($param = null) {
@@ -42,31 +38,31 @@ class Categories extends Controller{
         $category = $this->model->getById($idCategory);
 
         session_start();
-        $_SESSION['id_showCategory'] = $category->cod;
-        $this->view->category = $category;
+        $_SESSION['id_showCategory'] = $category->id;
+        $this->view->categoryView = $category;
         $this->view->render('categories/detail');
     }
 
     function editCategory() {
         session_start();
-        $cod        = $_SESSION['id_showCategory'];
-        $tipo_pro   = $_POST['txttipo_pro'];
-        $carac      = $_POST['txtcarac'];
+        $id                 = $_SESSION['id_showCategory'];
+        $category           = $_POST['category'];
+        $characteristics    = $_POST['characteristics'];
 
         unset($_SESSION['id_showCategory']);
 
         if ($this->model->updateCategory([
-            'cod'       => $cod, 
-            'tipo_pro'  => $tipo_pro, 
-            'carac'     => $carac
+            'id'                => $id, 
+            'category'          => $category, 
+            'characteristics'   => $characteristics
         ])) {
 
             $category = new Category;
-            $category->cod       = $cod; 
-            $category->tipo_pro  = $tipo_pro; 
-            $category->carac     = $carac;
+            $category->id               = $id; 
+            $category->category         = $category; 
+            $category->characteristics  = $characteristics;
 
-            $this->view->category = $category;
+            $this->view->categoryView = $category;
             $this->view->message = 'categoria creada';
         } else {
             $this->view->message = 'la categoria ya existe';
@@ -75,15 +71,15 @@ class Categories extends Controller{
     }
 
     function deleteCategory($param = null) {
-        $cod = $param[0];
+        $id = $param[0];
 
-        if ($this->model->deleteCategory($cod)){
+        if ($this->model->deleteCategory($id)){
             $message = 'categoria eliminada';
         } else {
             $message = 'categoria no fue eliminada';
         }
 
-        echo "se elimino la vista " . $cod;
+        echo "se elimino la vista " . $id;
     }
 }
 

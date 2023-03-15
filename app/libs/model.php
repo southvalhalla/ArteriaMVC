@@ -1,6 +1,6 @@
 <?php 
 
-include_once 'src/config/dataBase.php';
+include_once 'app/config/dataBase.php';
 
 class Model{
 
