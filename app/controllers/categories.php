@@ -67,7 +67,8 @@ class Categories extends Controller{
         } else {
             $this->view->message = 'la categoria ya existe';
         }
-        $this->view->render('categories/detail');
+        header('Location: ../categories');
+        exit();
     }
 
     function deleteCategory($param = null) {
