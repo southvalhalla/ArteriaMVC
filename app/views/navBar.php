@@ -13,16 +13,22 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="<?= constant('URL') ?>categories" >Categorias</a>
-          <li class="nav-item">
-            <a class="nav-link" href="<?= constant('URL') ?>sales" >Compras</a>
-            </li>
-          <li class="nav-item">
             <a class="nav-link" href="<?= constant('URL') ?>products" >Productos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?= constant('URL') ?>users" >Usuario</a>
+            <a class="nav-link" href="<?= constant('URL') ?>categories" >Categorias</a>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= constant('URL') ?>sales" >Ventas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" >Empleados</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" >Clientes</a>
           </li> 
+          <li class="nav-item">
+            <a class="nav-link" href="<?= constant('URL') ?>users" >Usuarios</a>
+          </li>
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
