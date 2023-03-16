@@ -2,7 +2,7 @@
 require_once 'app/libs/model.php';
 include_once 'app/class/category.php';
 
-class categoriesModel extends Model{
+class CategoriesModel extends Model{
 
     public function __construct(){
         parent::__construct();
