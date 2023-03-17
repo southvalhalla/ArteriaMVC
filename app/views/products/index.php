@@ -11,11 +11,11 @@
         ?>
         <table class="table table-dark table-striped table-hover justify-content-center border-secondary rounded mx-auto" style="width:75%;">
             
-            <div id="barrabuscar" class="ms-2 form-group">
+            <!-- <div id="barrabuscar" class="ms-2 form-group">
                 <form method="POST">
                     <input type="text" name="txtbuscar" id="cajabuscar" placeholder="Ingresar nombre de producto" class="form form-control w-25"><input type="submit" value="Buscar" class="btn btn-success mt-2" name="btnbuscar">
                 </form>
-            </div>
+            </div> -->
             <thead>
                 <tr><th colspan="8" class="text-center"><h1>LISTA DE PRODUCTOS</h1><th><a class="btn btn-primary mt-2" onclick="abrirform()">Agregar</a></th></tr>
                 <tr>

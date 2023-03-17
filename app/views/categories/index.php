@@ -10,11 +10,11 @@
             include 'app/views/navBar.php';
         ?>
         <table class="table table-dark table-striped table-hover justify-content-center border-secondary border border-dark rounded" style="width:75%; margin-right:auto; margin-left:auto;">
-            <div id="barrabuscar" class="ms-2 form-group">
+            <!-- <div id="barrabuscar" class="ms-2 form-group">
                 <form method="POST">
                     <input type="text" name="txtbuscar" id="cajabuscar" placeholder="Ingresar nombre de producto" class="form form-control w-25"><input type="submit" value="Buscar" class="btn btn-success mt-2" name="btnbuscar">
                 </form>
-            </div>
+            </div> -->
             <thead>
                 <tr>
                     <th colspan="3" class="text-center w-auto">
