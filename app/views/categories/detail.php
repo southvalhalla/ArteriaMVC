@@ -34,10 +34,6 @@
                 
             </table>
         </form>
-        <script src="<?= constant('URL') ?>public/js/main.js"></script>
-        <div class="caja_popup bg-body-secondary border border-4 border-primary-subtle rounded position-absolute top-50 start-50 translate-middle" style="width:35%; height:35%;" id="formregistrar">
-            
-        </div>
     </body>
 </html>
 

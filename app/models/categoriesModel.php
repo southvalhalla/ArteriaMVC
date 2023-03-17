@@ -29,26 +29,6 @@ class CategoriesModel extends Model{
         
     }
 
-    public function getCategory(){
-        $items = [];
-
-        try {
-            $query = $this->db->connect()->query("SELECT * FROM categories");
-
-            while($row = $query-> fetch()){
-                $item = new category();
-                $item->id               = $row['id'];
-                $item->category         = $row['category'];
-                $item->characteristics  = $row['characteristics'];
-
-                array_push($items,$item);
-                return $items;
-            }
-        } catch (PDOException $e) {
-            return [];
-        }
-    }
-
     public function getById($id){
         $item = new Category();
 
@@ -90,11 +70,27 @@ class CategoriesModel extends Model{
             $query->execute([
                 'id'       => $id
             ]);
-            return true;
-        }catch(PDOException $e){
-            return false;
-        }
+        }catch(PDOException $e){}
     }
+    // public function getCategory(){
+    //     $items = [];
+    
+    //     try {
+    //         $query = $this->db->connect()->query("SELECT * FROM categories");
+    
+    //         while($row = $query-> fetch()){
+    //             $item = new category();
+    //             $item->id               = $row['id'];
+    //             $item->category         = $row['category'];
+    //             $item->characteristics  = $row['characteristics'];
+    
+    //             array_push($items,$item);
+    //             return $items;
+    //         }
+    //     } catch (PDOException $e) {
+    //         return [];
+    //     }
+    // }
 }
 
 
