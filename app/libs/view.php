@@ -6,6 +6,9 @@ class View{
     public $categories;
     public $categoryView;
 
+    public $products;
+    public $productView;
+
     function __construct(){
     }
 
