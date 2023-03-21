@@ -9,6 +9,9 @@ class View{
     public $products;
     public $productView;
 
+    public $employees;
+    public $employeeView;
+
     function __construct(){
     }
 

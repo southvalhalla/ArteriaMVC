@@ -21,7 +21,7 @@
             <a class="nav-link" href="<?= constant('URL') ?>sales" >Ventas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" >Empleados</a>
+            <a class="nav-link" href="<?= constant('URL') ?>employees" >Empleados</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#" >Clientes</a>
