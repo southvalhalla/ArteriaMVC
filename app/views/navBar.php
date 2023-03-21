@@ -24,7 +24,7 @@
             <a class="nav-link" href="<?= constant('URL') ?>employees" >Empleados</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" >Clientes</a>
+            <a class="nav-link" href="<?= constant('URL') ?>clients" >Clientes</a>
           </li> 
           <li class="nav-item">
             <a class="nav-link" href="<?= constant('URL') ?>users" >Usuarios</a>
