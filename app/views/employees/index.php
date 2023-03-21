@@ -33,7 +33,7 @@
             </thead>   
             <tbody id="tbody-products">
                 <?php
-                    include_once 'app/class/product.php';
+                    include_once 'app/class/employees.php';
                     foreach($this->employees as $employee):
                 ?>
                 <tr id="row-<?= $employee['id'] ?>">
