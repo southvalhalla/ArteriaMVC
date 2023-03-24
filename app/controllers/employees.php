@@ -1,5 +1,6 @@
 <?php
 include_once 'app/libs/controller.php';
+require 'fpdf/fpdf.php';
 
 class Employees extends Controller{
 
@@ -89,6 +90,52 @@ class Employees extends Controller{
     function deleteEmployee($param) {
         $id = $param[0];
         $this->model->deleteEmployee($id);
+    }
+
+    function generatePDF() {
+        $pdf = new FPDF('L'); // se crea una instancia de la clase FPDF con orientación horizontal
+        $pdf->AddPage(); // se agrega una página al archivo PDF
+
+        $pdf->SetFont('Arial', 'B', 10); // se establece la fuente para el título de la tabla
+        $pdf->SetFillColor(200, 200, 200); // se establece el color de fondo para las celdas de la tabla
+
+        $employees = $this->model->getEmployees();
+
+        $results = $employees->fetchAll(PDO::FETCH_ASSOC); // se obtienen los resultados de la consulta en forma de un arreglo asociativo
+
+        $columnNames = array_keys($results[0]); // se obtienen los nombres de las columnas de la tabla a partir de los resultados
+
+        foreach ($columnNames as $columnName) { // se recorre cada columna y se agrega su nombre a la tabla
+            if($columnName == 'id'){
+                $pdf->Cell(10, 6, $columnName, 1, 0, 'C', true);
+            }else if($columnName == 'email'){
+                $pdf->Cell(65, 6, $columnName, 1, 0, 'C', true);
+            }else if($columnName == 'phone'){
+                $pdf->Cell(25, 6, $columnName, 1, 0, 'C', true);
+            }else{
+                $pdf->Cell(35, 6, $columnName, 1, 0, 'C', true);
+            } 
+        }
+        $pdf->Ln(); // se agrega una nueva línea después de agregar los nombres de las columnas
+
+        $pdf->SetFont('Arial', '', 10); // se establece la fuente para el contenido de la tabla
+
+        foreach ($results as $row) { // se recorre cada fila de la tabla y se agregan sus valores a la tabla
+            foreach ($columnNames as $columnName) { // se recorre cada columna de la fila y se agrega su valor a la tabla
+                if($columnName == 'id'){
+                    $pdf->Cell(10, 7, $row[$columnName], 1, 0, 'C');
+                }else if($columnName == 'email'){
+                    $pdf->Cell(65, 7, $row[$columnName], 1, 0, 'C');
+                }else if($columnName == 'phone'){
+                    $pdf->Cell(25, 7, $row[$columnName], 1, 0, 'C');
+                }else{
+                    $pdf->Cell(35, 7, $row[$columnName], 1, 0, 'C');
+                }                
+            }
+            $pdf->Ln(); // se agrega una nueva línea después de agregar los valores de la fila
+        }
+
+        $pdf->Output(); // se envía el archivo PDF al navegador o se guarda en el servidor
     }
 }
 

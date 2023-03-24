@@ -34,7 +34,7 @@ class EmployeesModel extends Model{
     public function getById($id){
         $item = new Employee();
 
-        $query = $this->db->connect()->prepare("SELECT * FROM employees WHERE id = :id");
+        $query = $this->db->connect()->prepare("SELECT * FROM employees WHERE id = :id ORDER BY id asc");
         try{
             $query->execute(['id' => $id]);
 
@@ -80,7 +80,7 @@ class EmployeesModel extends Model{
 
         try{
             $query->execute([
-                'id'       => $id
+                'id' => $id
             ]);
         }catch(PDOException $e){}
     }
