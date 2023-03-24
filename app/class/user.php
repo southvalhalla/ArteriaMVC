@@ -1,5 +1,5 @@
 <?php
-class Category {
+class User {
     public $id;
     public $id_client;
     public $client;

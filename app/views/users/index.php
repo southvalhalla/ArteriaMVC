@@ -5,97 +5,121 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <link rel="stylesheet" href="<?= constant('URL') ?>public/css/style.css">
     </head>
-    <body class="bg-dark bg-gradient">
+    <body class="bg-white">
         <?php
             include 'app/views/navBar.php';
         ?>
-        <table class="table table-dark table-striped table-hover d-flex justify-content-center border-secondary rounded ">
-            
-            <div id="barrabuscar" class="ms-2 form-group">
-                <form method="POST">
-                    <input type="text" name="txtbuscar" id="cajabuscar" placeholder="Ingresar nombre de producto" class="form form-control w-25"><input type="submit" value="Buscar" class="btn btn-success mt-2" name="btnbuscar">
-                </form>
-            </div>
-            <tr><th colspan="9" class="text-center"><h1>LISTA DE USUARIOS</h1><th><a class="btn btn-primary mt-2" onclick="abrirform()">Agregar</a></th></tr>
-            <tr>
-                <th>Num Documento</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Ciudad</th>
-                <th>Direccion</th>
-                <th>Telefono</th>
-                <th>Codigo postal</th>
-                <th>Correo</th>
-                <th>Contraseña</th>
-                <th>Accion</th>
-                
-            </tr>                        
-            <tr>
-                <td>cod</td>
-                <td>nombre</td>
-                <td>apellido</td>
-                <td>ciudad</td>
-                <td>direccion</td>
-                <td>telefono</td>
-                <td>codigo_postal</td>
-                <td>correo_cliente</td>
-                <td>contrasena</td>
-                <td style='width:26%'>
-                    <a class='btn btn-success' href='#'>Modificar</a> | <a class='btn btn-danger' href='#' onClick="">Eliminar</a>
-                </td>
-            </tr>
+        <div id="barrabuscar" class="mx-auto my-3">
+            <form method="POST" class="">
+                <div class="row">
+                    <div class="col-2 offset-2">
+                        <select class="form-select" name="option_search" id="option_search">
+                            <option value="" selected disabled>Filtro</option>
+                            <option value="id">ID</option>
+                            <option value="user">Nombre Usuario</option>
+                            <option value="email">Correo Electronico</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" name="txtbuscar" id="cajabuscar" placeholder="Ingresar usuario" class="form form-control">
+                    </div>
+                    <div class="col-2">
+                        <input type="submit" value="Buscar" class="btn btn-success" name="btnbuscar">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <table class="table table-sm table-hover text-center border-secondary rounded mx-auto" style="width:70%;height:auto">
+            <thead class="border table-primary">
+                <tr><th colspan="4" class="text-center"><h1>LISTA DE USUARIOS</h1><th><a class="btn btn-primary mt-2" onclick="abrirform()">Agregar</a></th></tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Correo</th>
+                    <th>Rol</th>
+                    <th>Accion</th>
+                    
+                </tr> 
+            </thead> 
+            <tbody class="border" id="tbody-users">
+                <?php
+                    include_once 'app/class/user.php';
+                    foreach($this->users as $user):
+                ?>
+                <tr id="row-<?= $user['id'] ?>">
+                    <td><?= $user['id'] ?></td>
+                    <td><?= $result=$user['employee']!= NULL?$user['employee']:$user['client'] ?></td>
+                    <td><?= $user['email'] ?></td>
+                    <td><?= $user['role'] ?></td>
+                    <td style='width:26%'>
+                        <a class='btn btn-success' href="<?= constant('URL').'users/showUser/' . $user['id']; ?>">Modificar</a> | <a class='bDelete btn btn-danger' data-id="<?= $user['id']; ?>">Eliminar</a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>                      
         </table>
         <script src="public/js/main.js"></script>
         <div class="caja_popup bg-body-secondary border border-4 border-primary-subtle rounded position-absolute top-50 start-50 translate-middle w-50 h-75" id="formregistrar">
-        <div class="caja_popup" id="formregistrar">
-            <form action="" class="contenedor_popup" method="POST">
+            <form action="<?= constant('URL').'users/addUser/' ?>" class="contenedor_popup" method="POST">
                 <table>
-                    <tr><th colspan="2">Nuevo usuario</th></tr>
+                    <tr><th colspan="2">Nuevo Usuario</th></tr>
                     <tr>
-                        <td>Num Documento</td>
-                        <td><input class="form-control" type="number" name="txtcod" required></td>
+                        <td>Categoria</td>
+                        <td>
+                            <select class="form-select ms-1" name="user_info" required>
+                                <option value="" disabled selected>--SELECCIONE UN USUARIO--</option>
+                                <optgroup label="Clientes">
+                                    <?php
+                                        include_once 'app/class/client.php';
+                                        foreach($this->clients as $client):
+                                            $options = 'client,'.$client['id'].','.$client['names'].' '.$client['lastnames'].','.$client['email'];
+                                    ?>
+
+                                    <option value="<?= $options ?>">ID: <?= $client['id']?> | <?= $client['names'].' '.$client['lastnames'] ?></option>
+
+                                    <?php endforeach; ?> 
+                                </optgroup>
+                                <optgroup label="Empleados">
+                                    <?php
+                                        include_once 'app/class/employee.php';
+                                        foreach($this->employees as $employee):
+                                            
+                                            $options = 'employee,'.$employee['id'].','.$employee['names'].' '.$employee['lastnames'].','.$employee['email'];
+                                    ?>
+
+                                    <option value="<?= $options ?>">ID: <?= $employee['id']?> | <?= $employee['names'].' '.$employee['lastnames'] ?></option>
+
+                                    <?php endforeach; ?>
+                                </optgroup>
+                            </select>   
+                        </td>
                     </tr>
                     <tr>
-                        <td>Nombre</td>
-                        <td><input class="form-control" type="text" name="txtnombre" required></td>
+                        <td>Rol </td>
+                        <td>
+                            <select name="role" id="role" class="form-select ms-1">
+                                <option value="Administrador">Administrador</option>
+                                <option value="Despachador">Despachador</option>
+                                <option value="Gerente">Gerente</option>
+                                <option value="Vendedor">Vendedor</option>
+                                <option value="Cliente">Cliente</option>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Apellido</td>
-                        <td><input class="form-control" type="text" name="txtapellido" required></td>
-                    </tr>
-                    <tr>
-                        <td>Ciudad</td>
-                        <td><input class="form-control" type="text" name="txtciudad" required></td>
-                    </tr>
-                    <tr>
-                        <td>Direccion</td>
-                        <td><input class="form-control" type="text" name="txtdireccion" required></td>
-                    </tr>
-                    <tr>
-                        <td>Telefono</td>
-                        <td><input class="form-control" type="number" name="txttelefono" required></td>
-                    </tr>
-                    <tr>
-                        <td>Codigo postal</td>
-                        <td><input class="form-control" type="number" name="txtcodigo" required></td>
-                    </tr>
-                    <tr>
-                        <td>Correo</td>
-                        <td><input class="form-control" type="email" name="txtcorreo" required></td>
-                    </tr>
-                    <tr>
-                        <td>Contraseña</td>
-                        <td><input class="form-control" type="password" name="txtcontrasena" required></td>
+                        <td>Contraseña </td>
+                        <td><input type="password" name="password"class="form-control ms-1"></td>
                     </tr>
                     <tr> 	
                         <td colspan="2">
-                            <button class="btn btn-danger" type="button" onclick="cancelarform()">Cancelar</button>
-                            <input class="btn btn-primary" type="submit" name="btnregistrar" value="Registrar" onClick="javascript: return confirm ('¿Deseas registrar a este usuario?');">
+                            <a href=""><button  class="btn btn-danger" type="button" onclick="cancelarform()">Cancelar</button></a>
+                            <input class="btn btn-success" type="submit" name="btnregistrar" value="Registrar" onClick="javascript: return confirm ('¿Deseas registrar a este producto?');">
                         </td>
                     </tr>
                 </table>
             </form>
-        </div>
+            <script src="<?= constant('URL') ?>public/js/main.js"></script>
+            <script src="<?= constant('URL') ?>public/js/users.js"></script>
         </div>
     </body>
 </html>

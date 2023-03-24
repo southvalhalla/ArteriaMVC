@@ -15,6 +15,12 @@ class View{
     public $clients;
     public $clientView;
 
+    public $users;
+    public $userView;
+
+    public $sales;
+    public $saleView;
+
     function __construct(){
     }
 
