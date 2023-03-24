@@ -5,22 +5,37 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <link rel="stylesheet" href="<?= constant('URL') ?>public/css/style.css">
     </head>
-    <body class="bg-dark bg-gradient">
+    <body class="bg-white">
         <?php
             include 'app/views/navBar.php';
         ?>
-        <table class="table table-dark table-striped table-hover justify-content-center border-secondary rounded mx-auto" style="width:75%;">
+        <div id="barrabuscar" class="mx-auto my-3">
+            <form method="POST" class="">
+                <div class="row">
+                    <div class="col-2 offset-2">
+                        <select class="form-select" name="option_search" id="option_search">
+                            <option value="" selected disabled>Filtro</option>
+                            <option value="id">ID</option>
+                            <option value="name">Nombre</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" name="txtbuscar" id="cajabuscar" placeholder="Ingresar producto" class="form form-control">
+                    </div>
+                    <div class="col-2">
+                        <input type="submit" value="Buscar" class="btn btn-success" name="btnbuscar">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <table class="table table-sm table-hover text-center border-secondary rounded mx-auto" style="width:75%;">
             
-            <!-- <div id="barrabuscar" class="ms-2 form-group">
-                <form method="POST">
-                    <input type="text" name="txtbuscar" id="cajabuscar" placeholder="Ingresar nombre de producto" class="form form-control w-25"><input type="submit" value="Buscar" class="btn btn-success mt-2" name="btnbuscar">
-                </form>
-            </div> -->
-            <thead>
-                <tr><th colspan="8" class="text-center"><h1>LISTA DE PRODUCTOS</h1><th><a class="btn btn-primary mt-2" onclick="abrirform()">Agregar</a></th></tr>
+            <thead class="border table-primary">
+                <tr><th colspan="9" class="text-center"><h1>LISTA DE PRODUCTOS</h1><th><a class="btn btn-primary mt-2" onclick="abrirform()">Agregar</a></th></tr>
                 <tr>
                     <th>ID</th>
                     <th>Codigo</th>
+                    <th>Cant.</th>
                     <th>Nombre producto</th>
                     <th>Marca</th>
                     <th>Categoria</th>
@@ -31,20 +46,21 @@
                     
                 </tr>     
             </thead>   
-            <tbody id="tbody-products">
+            <tbody class="border" id="tbody-products">
                 <?php
                     include_once 'app/class/product.php';
                     foreach($this->products as $product):
                 ?>
                 <tr id="row-<?= $product['id'] ?>">
-                    <th><?= $product['id'] ?></th>
-                    <th><?= $product['cod'] ?></th>
-                    <th><?= $product['name'] ?></th>
-                    <th><?= $product['trademark'] ?></th>
-                    <th><?= $product['category'] ?></th>
-                    <th><?= $product['description'] ?></th>
-                    <th><?= $product['images'] ?></th>
-                    <th><?= $product['price'] ?></th>
+                    <td><?= $product['id'] ?></td>
+                    <td><?= $product['cod'] ?></td>
+                    <td><?= $product['in_inventary'] ?></td>
+                    <td><?= $product['name'] ?></td>
+                    <td><?= $product['trademark'] ?></td>
+                    <td><?= $product['category'] ?></td>
+                    <td><?= $product['description'] ?></td>
+                    <td><?= $product['images'] ?></td>
+                    <td><?= $product['price'] ?></td>
                     <td style='width:26%'>
                         <a class='btn btn-success' href="<?= constant('URL').'products/showProduct/' . $product['id']; ?>">Modificar</a> | <a class='bDelete btn btn-danger' data-id="<?= $product['id']; ?>">Eliminar</a>
                     </td>
@@ -59,6 +75,10 @@
                     <tr>
                         <td>Producto</td>
                         <td><input class="form-control" type="text" name="name" required></td>
+                    </tr>
+                    <tr>
+                        <td>Cantidad</td>
+                        <td><input class="form-control" type="number" name="in_inventary" required></td>
                     </tr>
                     <tr>
                         <td>Marca</td>

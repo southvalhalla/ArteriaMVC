@@ -18,6 +18,7 @@ class Products extends Controller{
     }
 
     function addProduct(){
+        $in_inventary  = $_POST['in_inventary']>=0?$_POST['in_inventary']:0;
         $name          = $_POST['name'];
         $trademark     = $_POST['trademark'];
         $category      = $_POST['category'];
@@ -26,6 +27,7 @@ class Products extends Controller{
         $price         = $_POST['price'];
 
         if($this->model->insertProduct([
+            'in_inventary'  => $in_inventary,
             'name'          => $name,
             'trademark'     => $trademark,
             'category'      => $category,
@@ -53,7 +55,8 @@ class Products extends Controller{
 
     function editProduct(){
         session_start();
-        $id             =   $_SESSION['id_showProduct'];
+        $id            = $_SESSION['id_showProduct'];
+        $in_inventary  = $_POST['in_inventary']>=0?$_POST['in_inventary']:0;
         $name          = $_POST['name'];
         $trademark     = $_POST['trademark'];
         $category      = $_POST['category'];
@@ -64,6 +67,7 @@ class Products extends Controller{
 
         $this->model->updateProduct([
             'id'            => $id,
+            'in_inventary'  => $in_inventary,
             'name'          => $name,
             'trademark'     => $trademark,
             'category'      => $category,
@@ -73,6 +77,7 @@ class Products extends Controller{
         ]);
         $product = new Product();
         $product->id            = $id;
+        $product->in_inventary  = $in_inventary;
         $product->name          = $name;
         $product->tradeMark     = $trademark;
         $product->category      = $category;

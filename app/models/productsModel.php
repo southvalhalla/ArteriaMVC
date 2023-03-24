@@ -16,10 +16,11 @@ class ProductsModel extends Model {
 
     public function insertProduct($item){
         try{
-            $query = $this->db->connect()->prepare('INSERT INTO products(cod,name,trademark,category,description,images,price) Values(:cod,:name,:trademark,:category,:description,:images,:price)');
+            $query = $this->db->connect()->prepare('INSERT INTO products(cod,in_inventary,name,trademark,category,description,images,price) Values(:cod,:in_inventary,:name,:trademark,:category,:description,:images,:price)');
 
             $query->execute([
                 'cod'           => 'P'.rand(1000,3456),
+                'in_inventary'  => $item['in_inventary'],
                 'name'          => $item['name'],
                 'trademark'     => $item['trademark'],
                 'category'      => $item['category'],
@@ -49,6 +50,7 @@ class ProductsModel extends Model {
 
             while($row = $query->fetch()){
                 $item->id           = $row['id'];
+                $item->in_inventary = $row['in_inventary'];
                 $item->name         = $row['name'];
                 $item->tradeMark    = $row['trademark'];
                 $item->category     = $row['category'];
@@ -63,11 +65,12 @@ class ProductsModel extends Model {
     }
 
     public function updateProduct($item) {
-        $query = $this->db->connect()->prepare("UPDATE products SET name = :name, trademark = :trademark, category = :category, description = :description, images = :images, price = :price WHERE id = :id");
+        $query = $this->db->connect()->prepare("UPDATE products SET in_inventary = :in_inventary, name = :name, trademark = :trademark, category = :category, description = :description, images = :images, price = :price WHERE id = :id");
 
         try{
             $query->execute([
                 'id'            => $item['id'],
+                'in_inventary'  => $item['in_inventary'],
                 'name'          => $item['name'],
                 'trademark'     => $item['trademark'],
                 'category'      => $item['category'],

@@ -21,6 +21,10 @@
                     <td><input class="form-control" type="text" name="trademark" value="<?= $this->productView->tradeMark ?>" required></td>
                 </tr>
                 <tr>
+                    <td>Cantidad</td>
+                    <td><input class="form-control" type="number" name="in_inventary" value="<?= $this->productView->in_inventary ?>" required></td>
+                </tr>
+                <tr>
                     <td>Categoria</td>
                     <td>
                         <select class="form-select" name="category" required>
@@ -51,7 +55,7 @@
                 </tr>                
                 <tr> 	
                     <td colspan="2">
-                        <button  class="btn btn-danger" type="button" onclick="cancelarform()">Cancelar</button>
+                        <a href="<?= constant('URL') ?>products"><button  class="btn btn-danger" type="button" onclick="cancelarform()">Cancelar</button></a>
                         <input class="btn btn-success" type="submit" name="btnregistrar" value="Registrar" onClick="javascript: return confirm ('¿Deseas registrar a este producto?');">
                     </td>
                 </tr>
