@@ -79,7 +79,7 @@ class ClientsModel extends Model{
     }
 
     public function deleteClient($id) {
-        $query = $this->db->connect()->prepare("DELETE FROM employees WHERE id = :id");
+        $query = $this->db->connect()->prepare("DELETE FROM clients WHERE id = :id");
 
         try{
             $query->execute([
