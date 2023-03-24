@@ -5,39 +5,65 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <link rel="stylesheet" href="<?= constant('URL') ?>public/css/style.css">
     </head>
-    <body class="bg-dark bg-gradient">
+    <body class="bg-white">
         <?php
             include 'app/views/navBar.php';
         ?>
-        <table class="table table-dark table-striped table-hover d-flex justify-content-center border-secondary rounded ">
-            
-            <div id="barrabuscar" class="ms-2 form-group">
-                <form method="POST">
-                    <input type="text" name="txtbuscar" id="cajabuscar" placeholder="Ingresar nombre de producto" class="form form-control w-25"><input type="submit" value="Buscar" class="btn btn-success mt-2" name="btnbuscar">
-                </form>
-            </div>
-            <tr><th colspan="6" class="text-center"><h1>LISTA DE COMPRAS</h1><th><a class="btn btn-primary mt-2" onclick="abrirform()">Agregar</a></th></tr>
-            <tr>
-                <th>ID</th>
-                <th>Fecha</th>
-                <th>ID Cliente</th>
-                <th>Estado Pedido</th>
-                <th>metodo de pago</th>
-                <th>Precio Total</th>
-                <th>Accion</th>
-                
-            </tr>                        
-            <tr>
-                <td>cod</td>
-                <td>fecha</td>
-                <td>IDcliente</td>
-                <td>estadoPedido</td>
-                <td>metodoPago</td>
-                <td>precioTotal</td>
-                <td style='width:26%'>
-                    <a class='btn btn-success' href='#'>Modificar</a> | <a class='btn btn-danger' href='#' onClick="">Eliminar</a>
-                </td>
-            </tr>
+        <div id="barrabuscar" class="mx-auto my-3">
+            <form method="POST" class="">
+                <div class="row">
+                    <div class="col-4 offset-3">
+                        <input type="text" name="txtbuscar" id="cajabuscar" placeholder="Ingresar ID Venta" class="form form-control">
+                    </div>
+                    <div class="col-2">
+                        <input type="submit" value="Buscar" class="btn btn-success" name="btnbuscar">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <table class="table table-sm table-hover text-center border-secondary rounded mx-auto" style="width: 90%;height:auto">
+            <thead class="border table-primary">
+                <tr>
+                    <th colspan="8" class="text-center">
+                        <h1>VENTAS</h1>
+                    </th>
+                    <th>
+                        <a href="<?= constant('URL') ?>sales/newSale" class="mt-2"><button class="btn btn-primary">Agregar</button></a>
+                    </th>
+                </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Cod</th>
+                    <th>Fecha</th>
+                    <th>ID Cliente</th>
+                    <th>Estado Pedido</th>
+                    <th>Información de pago</th>
+                    <th>Productos</th>
+                    <th>Precio Total</th>
+                    <th>Accion</th>
+                    
+                </tr>
+            </thead> 
+            <tbody class="border">
+                <?php
+                    include_once 'app/class/product.php';
+                    foreach($this->sales as $sale):
+                ?>
+                <tr id="row-<?= $sale['id'] ?>">
+                    <td><?= $sale['id'] ?></td>
+                    <td><?= $sale['cod'] ?></td>
+                    <td><?= $sale['date'] ?></td>
+                    <td><?= $sale['id_client'] ?></td>
+                    <td><?= $sale['status'] ?></td>
+                    <td><?= $sale['pay_info'] ?></td>
+                    <td><?= $sale['products'] ?></td>
+                    <td><?= $sale['total'] ?></td>
+                    <td style='width:26%'>
+                        <a class='btn btn-success' href="<?= constant('URL').'products/showProduct/' . $product['id']; ?>">Modificar</a> | <a class='bDelete btn btn-danger' data-id="<?= $product['id']; ?>">Eliminar</a>
+                    </td>
+                <?php endforeach; ?>
+                </tr>
+            </tbody>                     
         </table>
         <script src="public/js/main.js"></script>
         <div class="caja_popup bg-body-secondary border border-4 border-primary-subtle rounded position-absolute top-50 start-50 translate-middle w-50 h-75" id="formregistrar">
