@@ -27,30 +27,45 @@
         }
     </style>
 </head>
-<body class="bg-dark">
+<body class="bg-black">
 
     <?php
         include 'app/views/navBar.php';
     ?>
-    <img src="public/img/logo_negro.jpg" alt="Descripción de la imagen">
-    <div>
-        <div style="top:25%" class="position-absolute start-50 translate-middle">
+    <div class="w-25 h-25 mx-auto">
+        <img src="public/img/logo_negro.jpg" alt="Descripción de la imagen" class="w-100 h-100 mx-auto">
+    </div>
+    
+    <div class="row my-2">
+        <div class="col-10 offset-1">
             <!-- <center><h1 class="display-1 text-danger ">Arteria</h1></center> -->
             <form method="POST" action="" class="text-white" >
                 <div class="form-group">
-                    <label  for="doc">BUSQUEDA</label>
-                    <select name="tipo">
-                        <option value="nombre">Nombre/Tipo</option>
-                        <option value="documento">Documento/ID</option>                        
-                    </select>
-                    <select name="selec">
-                        <option value="usuario">Usuarios</option>
-                        <option value="compras">Compras</option>
-                        <option value="categorias">Categorias</option>
-                        <option value="productos">Productos</option>
-                    </select>
-                    <input type="text" name="doc" id="doc">
-                    <input class="btn btn-primary p-0" type="submit" value="Consultar" name="btn_consultar">
+                    <div class="row">
+                        <div class="col-2">
+                            <label class="text-center" for="doc">BUSQUEDA</label>
+                        </div>
+                        <div class="col-3">
+                            <select name="tipo" class="form-select">
+                                <option value="nombre">Nombre/Tipo</option>
+                                <option value="documento">Documento/ID</option>                        
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select name="selec" class="form-select">
+                                <option value="usuario">Usuarios</option>
+                                <option value="compras">Compras</option>
+                                <option value="categorias">Categorias</option>
+                                <option value="productos">Productos</option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" name="doc" id="doc" class="form-control">
+                        </div>
+                        <div class="col-1">
+                            <input class="btn btn-primary" type="submit" value="Consultar" name="btn_consultar">
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

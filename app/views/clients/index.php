@@ -5,19 +5,33 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <link rel="stylesheet" href="<?= constant('URL') ?>public/css/style.css">
     </head>
-    <body class="bg-dark bg-gradient">
+    <body class="bg-white">
         <?php
             include 'app/views/navBar.php';
         ?>
-        <table class="table table-dark table-striped table-hover border-secondary rounded mx-auto" style="width:95%;">
-            
-            <!-- <div id="barrabuscar" class="ms-2 form-group">
-                <form method="POST">
-                    <input type="text" name="txtbuscar" id="cajabuscar" placeholder="Ingresar nombre de producto" class="form form-control w-25"><input type="submit" value="Buscar" class="btn btn-success mt-2" name="btnbuscar">
-                </form>
-            </div> -->
-            <thead>
-                <tr><th colspan="8" class="text-center"><h1>LISTA DE CLIENTES</h1><th><a class="btn btn-primary mt-2" onclick="abrirform()">Agregar</a></th></tr>
+        <div id="barrabuscar" class="mx-auto my-3">
+            <form method="POST" class="">
+                <div class="row">
+                    <div class="col-2 offset-2">
+                        <select class="form-select" name="option_search" id="option_search">
+                            <option value="" selected disabled>Filtro</option>
+                            <option value="id">ID</option>
+                            <option value="name">Nombre</option>
+                            <option value="document_number">Numero de documento</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" name="txtbuscar" id="cajabuscar" placeholder="Ingresar cliente" class="form form-control">
+                    </div>
+                    <div class="col-2">
+                        <input type="submit" value="Buscar" class="btn btn-success" name="btnbuscar">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <table class="table table-sm table-hover text-center border-secondary rounded mx-auto" style="width:95%;">
+            <thead class="border table-primary">
+                <tr><th colspan="9" class="text-center"><h1>LISTA DE CLIENTES</h1><th><a class="btn btn-primary mt-2" onclick="abrirform()">Agregar</a></th></tr>
                 <tr>
                     <th>ID</th>
                     <th>TIPO DE DOCUMENTO</th>
@@ -32,21 +46,21 @@
                     
                 </tr>     
             </thead>   
-            <tbody id="tbody-products">
+            <tbody class="border" id="tbody-products">
                 <?php
                     include_once 'app/class/client.php';
                     foreach($this->clients as $client):
                 ?>
                 <tr id="row-<?= $client['id'] ?>">
-                    <th><?= $client['id'] ?></th>
-                    <th><?= $client['document_type'] ?></th>
-                    <th><?= $client['document_number'] ?></th>
-                    <th><?= $client['names'] ?></th>
-                    <th><?= $client['lastnames'] ?></th>
-                    <th><?= $client['phone'] ?></th>
-                    <th><?= $client['email'] ?></th>
-                    <th><?= $client['address'] ?></th>
-                    <th><?= $client['city'] ?></th>
+                    <td><?= $client['id'] ?></td>
+                    <td><?= $client['document_type'] ?></td>
+                    <td><?= $client['document_number'] ?></td>
+                    <td><?= $client['names'] ?></td>
+                    <td><?= $client['lastnames'] ?></td>
+                    <td><?= $client['phone'] ?></td>
+                    <td><?= $client['email'] ?></td>
+                    <td><?= $client['address'] ?></td>
+                    <td><?= $client['city'] ?></td>
                     <td style='width:26%'>
                         <a class='btn btn-success' href="<?= constant('URL').'clients/showClient/' . $client['id']; ?>">Modificar</a> | <a class='bDelete btn btn-danger' data-id="<?= $client['id']; ?>">Eliminar</a>
                     </td>
