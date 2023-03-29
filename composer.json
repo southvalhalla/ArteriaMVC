@@ -1,0 +1,20 @@
+{
+    "name": "aarias/arteria-electronics-mvc",
+    "description": "arteria electronics, crud for practice php and mvc",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Aarias\\ArteriaElectronicsMvc\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "southvalhalla",
+            "email": "ah.alejo25@gmail.com"
+        }
+    ],
+    "require": {
+        "fakerphp/faker": "^1.20"
+    }
+}
