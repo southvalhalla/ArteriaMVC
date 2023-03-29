@@ -20,6 +20,8 @@ class View{
 
     public $sales;
     public $saleView;
+    public $saleInfoProds;
+    public $saleInfoPay;
 
     function __construct(){
     }

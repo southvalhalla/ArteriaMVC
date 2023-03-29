@@ -20,92 +20,101 @@ class SalesModel extends Model {
         return $query;
     }
 
-    // public function insertUser($item){
-    //     try{
-    //         $query = $this->db->connect()->prepare('INSERT INTO users(id_employee,employee,id_client,client,email,role,password) Values(:id_employee,:employee,:id_client,:client,:email,:role,:password)');
+    public function getProducts_options(){
+        $query = $this->db->connect()->query('SELECT * FROM products');
 
-    //         $query->execute([
-    //             'id_employee'   => $item['id_employee'],
-    //             'employee'      => $item['employee'],
-    //             'id_client'     => $item['id_client'],
-    //             'client'        => $item['client'],
-    //             'email'         => $item['email'],
-    //             'role'          => $item['role'],
-    //             'password'      => $item['password']
-    //         ]);
-    //         return true;
-    //     }catch(PDOException $e){
-    //         return false;
-    //     }
-    // }
+        return $query;
+    }
 
-    // public function getClients_Options(){
-    //     $query = $this->db->connect()->query('SELECT * FROM clients');
+    public function getSaleByID($id,$id_client){
+        $querySale = $this->db->connect()->prepare('SELECT * FROM sales WHERE id = :id');
+        $queryClient = $this->db->connect()->prepare('SELECT * FROM clients WHERE id = :id');
+    
+        try{
+            $querySale->execute([
+                'id' => $id
+            ]);
+            $queryClient->execute([
+                'id' => $id_client
+            ]);
 
-    //     return $query;
-    // }
+            $query = [$querySale,$queryClient];
+            return $query;
+        } catch(PDOException $e){}
+    }
 
-    // public function getEmployees_Options(){
-    //     $query = $this->db->connect()->query('SELECT * FROM employees');
+    function viewInfo($id){
+        $query = $this->db->connect()->prepare('SELECT pay_info, products FROM sales WHERE id = :id');
+    
+        try{
+            $query->execute([
+                'id' => $id
+            ]);
+            return $query;
+        } catch(PDOException $e){
+        }
 
-    //     return $query;
-    // }
+    }
 
-    // public function getById($id){
-    //     $item = new User();
+    public function insertSale($item){
+        $query = $this->db->connect()->prepare('INSERT INTO sales(cod, date, id_client, status, pay_info, products, total) Values( :cod, :date, :id_client, :status, :pay_info, :products, :total)');
+        try{
+            $query->execute([
+                'cod'       => $item['cod'],
+                'date'      => $item['date'],
+                'id_client' => $item['id_client'],
+                'status'    => $item['status'],
+                'products'  => $item['products'],
+                'pay_info'  => $item['pay_info'],
+                'total'     => $item['total']
+            ]);
+            return true;
+        }catch(PDOException $e){
+            print_r($item);
+            return false;
+        }
+    }
 
-    //     $query = $this->db->connect()->prepare('SELECT * FROM users WHERE id = :id');
+    public function getById($id){
 
-    //     try{
-    //         $query->execute(['id' => $id]);
+        $query = $this->db->connect()->prepare('SELECT status FROM sales WHERE id = :id');
+    
+        try{
+            $query->execute([
+                'id' => $id
+            ]);
 
-    //         while($row = $query->fetch()){
-    //             $item->id           = $row['id'];
-    //             $item->id_employee  = $row['id_employee'];
-    //             $item->employee     = $row['employee'];
-    //             $item->id_client    = $row['id_client'];
-    //             $item->client       = $row['client'];
-    //             $item->email        = $row['email'];
-    //             $item->role         = $row['role'];
-    //             $item->password     = $row['password'];
+            return $query;
+        }catch(PDOException $e){
+            return null;
+        }
+    }
 
-    //         }
-    //         return $item;
-    //     }catch(PDOException $e){
-    //         return null;
-    //     }
-    // }
+    public function updateStatus($item) {
+        $query = $this->db->connect()->prepare("UPDATE sales SET status = :status WHERE id = :id");
 
-    // public function updateUser($item) {
-    //     $query = $this->db->connect()->prepare("UPDATE users SET id_employee = :id_employee, employee = :employee, id_client = :id_client, client = :client, email = :email, role = :role, password = :password WHERE id = :id");
+        try{
+            $query->execute([
+                'id'        => $item['id'],
+                'status'    => $item['status']
+            ]);
+            var_dump($item['id']);
+            return true;
+        }catch(PDOException $e){
+            return false;
+        }
+    }
 
-    //     try{
-    //         $query->execute([
-    //             'id'            => $item['id'],
-    //             'id_employee'   => $item['id_employee'],
-    //             'employee'      => $item['employee'],
-    //             'id_client'     => $item['id_client'],
-    //             'client'        => $item['client'],
-    //             'email'         => $item['email'],
-    //             'role'          => $item['role'],
-    //             'password'      => $item['password']
-    //         ]);
-    //         return true;
-    //     }catch(PDOException $e){
-    //         return false;
-    //     }
-    // }
+    public function deleteSale($id){
+        $query = $this->db->connect()->prepare("DELETE FROM sales WHERE id = :id");
 
-    // public function deleteUser($id){
-    //     $query = $this->db->connect()->prepare("DELETE FROM users WHERE id = :id");
-
-    //     try{
-    //         $query->execute([
-    //             'id' => $id
-    //         ]);
+        try{
+            $query->execute([
+                'id' => $id
+            ]);
             
-    //     }catch(PDOException $e){}
-    // }
+        }catch(PDOException $e){}
+    }
 
 
 }
