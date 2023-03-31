@@ -1,6 +1,6 @@
 <?php
 include_once 'app/libs/controller.php';
-require 'fpdf/fpdf.php';
+// require_once 'vendor/autoload.php';
 
 class Employees extends Controller{
 
@@ -11,7 +11,21 @@ class Employees extends Controller{
         }
 
     function renderView(){
-        $employees = $this->model->getEmployees();
+        if(isset($_REQUEST['num'])){
+            $_REQUEST['num'] = $_REQUEST['num']!=''|!empty($_REQUEST['num'])?$_REQUEST['num']:1;
+            $page = $_REQUEST['num'];
+        }else{
+            $page=1;
+        }
+        $viewRows = 5;
+        $begin = is_numeric($page)?(($page-1)*$viewRows):0;
+
+        $content = $this->model->getEmployees($begin, $viewRows);
+        $end = ceil($content[1]/$viewRows);
+
+        $employees = $content[0];
+        $this->view->end = $end;
+        $this->view->page = $page;
         $this->view->employees = $employees;
         $this->view->render('employees/index'); 
     }

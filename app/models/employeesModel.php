@@ -8,10 +8,16 @@ class EmployeesModel extends Model{
         parent::__construct();
     }
 
-    public function getEmployees(){
-        $query = $this->db->connect()->query('SELECT * FROM employees');
+    public function getEmployees($param1,$param2){
+        $query = $this->db->connect()->prepare('SELECT * FROM employees ORDER BY id ASC LIMIT :param1, :param2');
+        $rows = $this->db->connect()->query('SELECT * FROM employees')->rowCount();
+        $query->bindValue(':param1', $param1, PDO::PARAM_INT);
+        $query->bindValue(':param2', $param2, PDO::PARAM_INT);
 
-        return $query;
+        try{
+            $query->execute();
+            return [$query,$rows];
+        }catch(PDOException $e){}
     }
 
     public function insertEmployee($item){

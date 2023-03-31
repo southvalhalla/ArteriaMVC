@@ -10,9 +10,25 @@ class Clients extends Controller{
         }
 
     function renderView(){
-        $clients = $this->model->getClients();
+        if(isset($_REQUEST['num'])){
+            $_REQUEST['num'] = $_REQUEST['num']!=''|!empty($_REQUEST['num'])?$_REQUEST['num']:1;
+            $page = $_REQUEST['num'];
+        }else{
+            $page=1;
+        }
+        $viewRows = 5;
+        $begin = is_numeric($page)?(($page-1)*$viewRows):0;
+
+        $content = $this->model->getClients($begin, $viewRows);
+        $end = ceil($content[1]/$viewRows);
+
+        $clients = $content[0];
+        $this->view->end = $end;
         $this->view->clients = $clients;
-        $this->view->render('clients/index'); 
+        $this->view->page = $page;
+        $this->view->render('clients/index');
+
+
     }
 
     function addClient() {
@@ -96,6 +112,8 @@ class Clients extends Controller{
         $id = $param[0];
         $this->model->deleteClient($id);
     }
+
+    
 }
 
 ?>

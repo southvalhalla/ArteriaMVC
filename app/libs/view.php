@@ -3,6 +3,11 @@ class View{
 
     public $message;
 
+    public $page;
+    public $pages;
+    public $end;
+    public $viewRows;
+
     public $categories;
     public $categoryView;
 

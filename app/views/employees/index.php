@@ -71,6 +71,27 @@
                 <?php endforeach; ?>
             </tbody>                
         </table>
+        <div class="row">
+            <div class="col-2 offset-5">
+                <nav class="" aria-label="Page navigation">
+                    <ul class="pagination">
+                        <?php
+                        $prev = $this->page - 1;
+                        $next = $this->page + 1;
+
+                        if($this->page == 1){ }else{  ?>
+                            <li class="page-item"><a class="page-link" href="<?= constant('URL').'clients?num=1' ?>">Inicio</a></li>
+                            <li class="page-item"><a class="page-link" href="<?= constant('URL').'clients?num='.$prev ?>"><?= $prev ?></a></li>
+                        <?php } ?> 
+                        <li class="page-item"><a class="page-link" href="<?= constant('URL').'clients?num='.$this->page; ?>"><?= $this->page ?></a></li>
+                        <?php if($this->page == $this->end){ }else{ ?>
+                            <li class="page-item"><a class="page-link" href="<?= constant('URL').'clients?num='.$next ?>"><?= $next ?></a></li>
+                            <li class="page-item"><a class="page-link" href="<?= constant('URL').'clients?num='.$this->end ?>">Final</a></li>
+                        <?php } ?>
+                    </ul>
+                </nav>
+            </div>
+        </div>
         <card class="caja_popup bg-white border rounded position-absolute top-50 start-50 translate-middle" style="width:40%;height:40%" id="formregistrar">
             <form action="<?= constant('URL').'employees/addEmployee/' ?>" class="contenedor_popup" method="POST">
                 <table>

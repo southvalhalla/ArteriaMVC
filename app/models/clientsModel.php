@@ -8,10 +8,17 @@ class ClientsModel extends Model{
         parent::__construct();
     }
 
-    public function getClients(){
-        $query = $this->db->connect()->query('SELECT * FROM clients');
+    public function getClients($param1,$param2){
+        // $query = $this->db->connect()->query('SELECT * FROM clients');
+        $query = $this->db->connect()->prepare('SELECT * FROM clients ORDER BY id ASC LIMIT :param1, :param2');
+        $rows = $this->db->connect()->query('SELECT * FROM clients')->rowCount();
+        $query->bindValue(':param1', $param1, PDO::PARAM_INT);
+        $query->bindValue(':param2', $param2, PDO::PARAM_INT);
 
-        return $query;
+        try{
+            $query->execute();
+            return [$query,$rows];
+        }catch(PDOException $e){}
     }
 
     public function insertClient($item){

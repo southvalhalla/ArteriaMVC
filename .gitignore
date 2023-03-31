@@ -1,4 +1,3 @@
 .vscode/launch.json
-fpdf/
-
-/vendor/
+vendor/
+node_modules

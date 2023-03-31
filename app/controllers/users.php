@@ -38,7 +38,8 @@ class Users extends Controller{
             $role           = $_POST['role'];
 
         }
-        $password   = $_POST['password'];
+        $password = $_POST['password'];
+        $password = md5($password);
 
         if($this->model->insertUser([
             'id_client'     => $idClient,
@@ -92,6 +93,7 @@ class Users extends Controller{
 
         $role       = $_POST['role'];
         $password   = $_POST['password'];
+        $password   = md5($password);
         unset($_SESSION['id_showUser']);
 
         $this->model->updateUser([

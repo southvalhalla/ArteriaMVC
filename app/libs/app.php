@@ -10,10 +10,10 @@ class App{
         $url = explode('/', $url);
 
         if (empty($url[0])){
-            $fileController = 'app/controllers/main.php';
+            $fileController = 'app/controllers/login.php';
             require_once $fileController;
-            $controller = new Main();
-            $controller->loadModel('main');
+            $controller = new Login();
+            $controller->loadModel('load');
             $controller->renderView();
             return false;
         }
